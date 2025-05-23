@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from selenium.webdriver.support.ui import WebDriverWait
 from scraper_module import iniciar_driver, fazer_login, buscar_produto
+import os  # Para ler a porta do ambiente Railway
 
 app = Flask(__name__)
 
@@ -56,5 +57,7 @@ def consulta():
     finally:
         driver.quit()
 
+# 🚀 Rodar app na nuvem com configuração dinâmica de porta
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
